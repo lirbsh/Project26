@@ -14,8 +14,8 @@ namespace Project26.Models
         {
             FirebaseAuthConfig fac = new()
             {
-                ApiKey = Keys.FbApiKey,
-                AuthDomain = Keys.FbAppDomainKey,
+                ApiKey = ApiKeys.FbApiKey,
+                AuthDomain = ApiKeys.FbAppDomainKey,
                 Providers = [new EmailProvider()]
             };
             facl = new FirebaseAuthClient(fac);        

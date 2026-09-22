@@ -2,8 +2,6 @@
 {
     internal static class Keys
     {
-        public const string FbApiKey = "AIzaSyAO7ZNFpcFKWFuaWtfUuKwIxIwZLLWE4_4";
-        public const string FbAppDomainKey = "project26.firebaseapp.com";
         public const string NameKey = "name";
         public const string EmailKey = "email";
         public const string PasswordKey = "password";
