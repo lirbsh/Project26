@@ -24,7 +24,6 @@ namespace Project26.ViewModels
         {
             chats.ChatsChanged += OnChatsChanged;
         }
-
         private void OnChatsChanged(object? sender, EventArgs e)
         {
             OnPropertyChanged(nameof(ChatsList));

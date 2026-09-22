@@ -27,6 +27,5 @@ namespace Project26.Models
         public abstract IListenerRegistration AddSnapshotListener(string collectonName, string documentId, Plugin.CloudFirestore.DocumentSnapshotHandler OnChange);
         public abstract void RemoveSnapshotListener();
         public abstract void GetDocumentsWhereEqualTo(string collectonName, string fName, object fValue, Action<IQuerySnapshot> OnComplete);
-
     }
 }

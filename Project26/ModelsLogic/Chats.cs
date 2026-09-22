@@ -1,4 +1,5 @@
 ﻿using Plugin.CloudFirestore;
+using Project26.General;
 
 namespace Project26.ModelsLogic
 {
@@ -8,17 +9,15 @@ namespace Project26.ModelsLogic
         {
             Chat c = new(); 
         }
-
         public override void AddSnapshotListener()
         {
-            fbd.ilr = fbd.AddSnapshotListener(General.Keys.CollectionKey, OnChange);
+            fbd.ilr = fbd.AddSnapshotListener(Keys.CollectionKey, OnChange);
         }
 
         private void OnChange(IQuerySnapshot? snapshot, Exception? error)
         {
-            fbd.GetDocumentsWhereEqualTo(General.Keys.CollectionKey,nameof(Chat.IsFull), false, OnComplete);
+            fbd.GetDocumentsWhereEqualTo(Keys.CollectionKey,nameof(Chat.IsFull), false, OnComplete);
         }
-
         protected override void OnComplete(IQuerySnapshot qs)
         {
             ChatsList!.Clear();
@@ -33,7 +32,6 @@ namespace Project26.ModelsLogic
             }
             ChatsChanged?.Invoke(this, EventArgs.Empty);
         }
-
         public override void RemoveSnapshotListener()
         {
             fbd.RemoveSnapshotListener();

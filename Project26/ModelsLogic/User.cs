@@ -8,24 +8,20 @@ namespace Project26.ModelsLogic
         {
             fbd.CreateUser(email, password, name, OnCreateComplete);
         }
-
+        public override void SignIn(string email, string password)
+        {
+            fbd.SignIn(email, password, OnSignInComplete);
+        }
         protected override void OnCreateComplete(Task task)
         {
             UpdateStatus(task);
             if (task.IsCompletedSuccessfully)
                 Save();
         }
-
-        public override void SignIn(string email, string password)
-        { 
-            fbd.SignIn(email, password, OnComplete);
-        }
-
-        protected override void OnComplete(Task task)
+        protected override void OnSignInComplete(Task task)
         {
             UpdateStatus(task);
         }
-
         protected override void UpdateStatus(Task task)
         {
             Status = task.IsCompletedSuccessfully ? Strings.Success : 

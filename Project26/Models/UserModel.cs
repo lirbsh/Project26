@@ -15,7 +15,7 @@ namespace Project26.Models
         public abstract void CreateUser(string email, string password, string name);
         public abstract void SignIn(string email, string password);
         protected abstract void OnCreateComplete(Task task);
-        protected abstract void OnComplete(Task task);
+        protected abstract void OnSignInComplete(Task task);
         protected abstract void UpdateStatus(Task task);
         protected abstract void Save();
     }

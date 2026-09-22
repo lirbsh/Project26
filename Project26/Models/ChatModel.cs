@@ -1,13 +1,7 @@
-﻿using Plugin.CloudFirestore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Project26.Models
+﻿namespace Project26.Models
 {
     internal abstract class ChatModel
     {
-       
         public string? Id { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string? HostName { get; set; }
@@ -16,7 +10,5 @@ namespace Project26.Models
         public bool IsFull { get; set; }
         public bool IsHostTurn { get; set; }
         public abstract void SendMessage(Action<Task> OnComplete);
-
-       
     }
 }

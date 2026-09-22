@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Project26.Views;
+﻿using Project26.Views;
 
 namespace Project26
 {
@@ -9,7 +8,6 @@ namespace Project26
         {
             InitializeComponent();
         }
-
         protected override Window CreateWindow(IActivationState? activationState)
         {
             return new Window(new AuthPage());

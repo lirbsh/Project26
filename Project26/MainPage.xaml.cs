@@ -4,7 +4,7 @@ namespace Project26
 {
     public partial class MainPage : ContentPage
     {
-        private MainPageVM mpVm = new();
+        private readonly MainPageVM mpVm = new();
         public MainPage()
         {
             InitializeComponent();

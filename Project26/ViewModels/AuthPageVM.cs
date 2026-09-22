@@ -10,23 +10,19 @@ namespace Project26.ViewModels
         public string Name { get => user.Name; set => user.Name = value; }
         public string Status { get => user.Status; set => user.Status = value; }
         public ICommand CreateUserCommand => new Command(CreateUser);
-
-        private void CreateUser()
-        {
-            user.CreateUser(Email, Password, Name);
-        }
-
         public ICommand SignInCommand => new Command(SignIn);
-
-        private void SignIn()
-        {
-            user.SignIn(Email, Password);
-        }
         public AuthPageVM()
         {
             user.StatusChanged += OnStatusChanged;
         }
-
+        private void CreateUser()
+        {
+            user.CreateUser(Email, Password, Name);
+        }
+        private void SignIn()
+        {
+            user.SignIn(Email, Password);
+        }
         private void OnStatusChanged(object? sender, EventArgs e)
         {
             OnPropertyChanged(nameof(Status));

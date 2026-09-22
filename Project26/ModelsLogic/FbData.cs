@@ -1,5 +1,4 @@
-﻿
-using Plugin.CloudFirestore;
+﻿using Plugin.CloudFirestore;
 using Project26.General;
 using System.Text.RegularExpressions;
 
@@ -37,23 +36,19 @@ namespace Project26.ModelsLogic
             ICollectionReference cr = fs.Collection(collectonName);
             return cr.AddSnapshotListener(OnChange);
         }
-
         public override IListenerRegistration AddSnapshotListener(string collectonName, string documentId, DocumentSnapshotHandler OnChange)
         {
             IDocumentReference dr = fs.Collection(collectonName).Document(documentId);
             return dr.AddSnapshotListener(OnChange);
         }
-
         public override void CreateUser(string email, string password, string name, Action<Task> OnComplete)
         {
             facl.CreateUserWithEmailAndPasswordAsync(email, password, name).ContinueWith(OnComplete);
         }
-
         public override void RemoveSnapshotListener()
         {
             ilr?.Remove();
         }
-
         public override void SignIn(string email, string password, Action<Task> OnComplete)
         {
             facl.SignInWithEmailAndPasswordAsync(email, password).ContinueWith(OnComplete);
@@ -70,6 +65,5 @@ namespace Project26.ModelsLogic
         //    IQuerySnapshot qs = await cr.WhereEqualsTo(fName, fValue).GetAsync();
         //    OnComplete(qs);
         //}
-
     }
 }
