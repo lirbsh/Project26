@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Project26/General/Keys.cs
+/Project26/General/ApiKeys.cs
+/Project26/Resources/Raw/google-services.json
