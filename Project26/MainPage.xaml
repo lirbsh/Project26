@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Project26.ViewModels"
+             xmlns:ml="clr-namespace:Project26.ModelsLogic"
+             xmlns:gn="clr-namespace:Project26.General"
+             x:Class="Project26.MainPage"
+             x:DataType="vm:MainPageVM">
+    <VerticalStackLayout>
+        <Button Text="{x:Static gn:Strings.AddChat}" Command="{Binding AddChatCommand}" Margin="10" FontSize="25"/>
+        <CollectionView ItemsSource="{Binding ChatsList}" Margin="10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="ml:Chat">
+                    <Border BackgroundColor="LightCyan" Padding="5">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding HostName}" FontSize="20" FontAttributes="Bold"/>
+                            <Label Text="{Binding CreatedAt, StringFormat='{0:dd/MM HH:mm}'}" FontSize="16"/>
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>
