@@ -1,13 +1,14 @@
-﻿using System.Collections.ObjectModel;
+﻿using Project26.ModelsLogic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace Project26.ViewModels
 {
     internal partial class MainPageVM :Models.ObservableObject
     {
-        private readonly ModelsLogic.Chats chats = new();
+        private readonly Chats chats = new();
         public ICommand AddChatCommand => new Command(AddChat);
-        public ObservableCollection<ModelsLogic.Chat> ChatsList => chats.ChatsList;
+        public ObservableCollection<Chat> ChatsList => chats.ChatsList;
         private void AddChat()
         {
             

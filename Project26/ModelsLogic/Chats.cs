@@ -20,7 +20,7 @@ namespace Project26.ModelsLogic
         }
         protected override void OnComplete(IQuerySnapshot qs)
         {
-            ChatsList!.Clear();
+            ChatsList.Clear();
             foreach (IDocumentSnapshot ds in qs.Documents)
             {
                 Chat? chat = ds.ToObject<Chat>();
@@ -30,7 +30,7 @@ namespace Project26.ModelsLogic
                     ChatsList.Add(chat);
                 }
             }
-            ChatsChanged?.Invoke(this, EventArgs.Empty);
+            ChatsChanged?.Invoke(this, EventArgs.Empty);    
         }
         public override void RemoveSnapshotListener()
         {

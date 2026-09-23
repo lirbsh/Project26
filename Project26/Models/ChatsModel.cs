@@ -8,7 +8,7 @@ namespace Project26.Models
     {
         protected FbData fbd = new();
         public EventHandler? ChatsChanged { get; set; }
-        public ObservableCollection<Chat> ChatsList { get; set; } = [] ;
+        public ObservableCollection<Chat> ChatsList { get; set; } = [];
         public abstract void AddChat(Action<Task> OnComplete);
         public abstract void AddSnapshotListener();
         public abstract void RemoveSnapshotListener();

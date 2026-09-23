@@ -13,5 +13,6 @@
         public const string Auth = "Authentication";
         public const string Success = "Success";
         public const string UnknownError = "Unknown error";
+        public const string NoChats = "No available chats at the moment.\n\nPlease try again later,\n\nor create a new one.";
     }
 }
