@@ -11,6 +11,7 @@ namespace Project26.ViewModels
         public string Status { get => user.Status; set => user.Status = value; }
         public ICommand CreateUserCommand => new Command(CreateUser);
         public ICommand SignInCommand => new Command(SignIn);
+
         public AuthPageVM()
         {
             user.StatusChanged += OnStatusChanged;
@@ -19,7 +20,7 @@ namespace Project26.ViewModels
         {
             user.CreateUser(Email, Password, Name);
         }
-        private void SignIn()
+        private void SignIn(object? obj)
         {
             user.SignIn(Email, Password);
         }

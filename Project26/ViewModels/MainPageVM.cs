@@ -1,4 +1,6 @@
-﻿using Project26.ModelsLogic;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using Project26.ModelsLogic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -11,8 +13,14 @@ namespace Project26.ViewModels
         public ObservableCollection<Chat> ChatsList => chats.ChatsList;
         private void AddChat()
         {
-            
+            chats.AddChat(OnComplete);
         }
+        private void OnComplete(Task task)
+        {
+            if (task.IsFaulted)
+                Toast.Make(task.Exception.Message, ToastDuration.Long).Show();
+        }
+
         public void AddSnapshotListener()
         {
             chats.AddSnapshotListener();
