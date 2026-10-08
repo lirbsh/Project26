@@ -1,14 +1,22 @@
 ﻿using Plugin.CloudFirestore;
 using Project26.General;
+using Project26.Models;
 
 namespace Project26.ModelsLogic
 {
     internal class Chats : Models.ChatsModel
     {
-        public override void AddChat(Action<Task> OnComplete)
+        public override void AddChat()
         {
-            Chat c = new(); 
+            newChat = new() { HostName = user.Name };
+            newChat.Id = newChat.SetFbDocument(OnComplete);
         }
+
+        private void OnComplete(Task task)
+        {
+            ChatAdded?.Invoke(this, new ChatArgs(newChat!, task.IsCompletedSuccessfully));
+        }
+
         public override void AddSnapshotListener()
         {
             fbd.ilr = fbd.AddSnapshotListener(Keys.CollectionKey, OnChange);
@@ -35,6 +43,11 @@ namespace Project26.ModelsLogic
         public override void RemoveSnapshotListener()
         {
             fbd.RemoveSnapshotListener();
+        }
+
+        protected override void OnComplete(Action<Task> task)
+        {
+            throw new NotImplementedException();
         }
     }
 }

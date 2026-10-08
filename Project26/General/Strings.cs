@@ -14,5 +14,15 @@
         public const string Success = "Success";
         public const string UnknownError = "Unknown error";
         public const string NoChats = "No available chats at the moment.\n\nPlease try again later,\n\nor create a new one.";
+        public const string ChatCreated = "New chat created successfully";
+        public const string ChatCreationFailed = "Failed to create new chat";
+        public const string ChatTitle = "Chat";
+        public const string PleaseWait = "Please wait...";
+        public const string GuestName = "Guest Name";
+        public const string ReceivedMessage = "Received Message";
+        public const string Message = "Message";
+        public const string Send = "Send";
+        public const string NewLine = "\n";
+        public const string ChatDeleted = "Chat deleted";
     }
 }

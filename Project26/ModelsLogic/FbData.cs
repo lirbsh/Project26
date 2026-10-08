@@ -58,12 +58,17 @@ namespace Project26.ModelsLogic
             ICollectionReference cr = fs.Collection(collectonName);
             cr.WhereEqualsTo(fName, fValue).GetAsync().ContinueWith(t => OnComplete(t.Result));
         }
-        // works but not recommended to use async void, so using ContinueWith instead
-        //public override async void GetDocumentsWhereEqualTo(string collectonName, string fName, object fValue, Action<IQuerySnapshot> OnComplete)
-        //{
-        //    ICollectionReference cr = fs.Collection(collectonName);
-        //    IQuerySnapshot qs = await cr.WhereEqualsTo(fName, fValue).GetAsync();
-        //    OnComplete(qs);
-        //}
+
+        public override string SetDocument(object obj, string collectonName, string? id, Action<Task> OnComplete)
+        {
+            IDocumentReference dr = string.IsNullOrEmpty(id) ? fs.Collection(collectonName).Document() : fs.Collection(collectonName).Document(id);
+            dr.SetAsync(obj).ContinueWith(OnComplete);
+            return dr.Id;
+        }
+        public override void DeleteDocument(string collectonName, string id, Action<Task> OnComplete)
+        {
+            IDocumentReference dr = fs.Collection(collectonName).Document(id);
+            dr.DeleteAsync().ContinueWith(OnComplete);
+        }
     }
 }

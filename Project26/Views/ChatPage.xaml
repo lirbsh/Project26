@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Project26.ViewModels"
+             xmlns:gn="clr-namespace:Project26.General"
+             x:Class="Project26.Views.ChatPage"
+             x:DataType="vm:ChatPageVM"
+             Title="{x:Static gn:Strings.ChatTitle}">
+    <Grid ColumnDefinitions="*,2*" RowDefinitions="Auto,Auto,Auto,Auto" Margin="10" ColumnSpacing="5" RowSpacing="10">
+        <Label Text="{x:Static gn:Strings.GuestName}"
+            VerticalOptions="Center" />
+        <Label Text="{Binding GuestName}"
+            Grid.Column="1"
+            VerticalOptions="Center" />
+        <Label Text="{x:Static gn:Strings.ReceivedMessage}"
+            Grid.Row="1"
+            VerticalOptions="Center" />
+        <Label Text="{Binding ReceivedMessage}"
+            Grid.Row="1"
+            Grid.Column="1"
+            VerticalOptions="Center" />
+        <Label Text="{x:Static gn:Strings.Message}"
+            Grid.Row="2"
+            VerticalOptions="Center" />
+        <Entry Text="{Binding Message}"
+            Grid.Row="2"
+            Grid.Column="1"
+            VerticalOptions="Center" />
+        <Button Text="{x:Static gn:Strings.Send}"
+            Grid.Row="3"
+            Grid.ColumnSpan="2"
+            Command="{Binding SendMessageCommand}" />
+    </Grid>
+</ContentPage>
