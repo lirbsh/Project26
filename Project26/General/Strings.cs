@@ -18,7 +18,7 @@
         public const string ChatCreationFailed = "Failed to create new chat";
         public const string ChatTitle = "Chat";
         public const string PleaseWait = "Please wait...";
-        public const string GuestName = "Guest Name";
+        public const string OpponentName = "Opponent Name";
         public const string ReceivedMessage = "Received Message";
         public const string Message = "Message";
         public const string Send = "Send";

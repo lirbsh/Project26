@@ -6,10 +6,14 @@ namespace Project26.Models
 {
     internal abstract class ChatModel
     {
+        protected bool _isMeHost = true;
         protected FbData fbd = new();
+        protected User user = new();
         public EventHandler? ChatDeleted { get; set; }
         [Ignored]
         public string? Id { get; set; }
+        [Ignored]
+        public abstract bool IsMeHost { get; set; } 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string? HostName { get; set; }
         public string? GuestName { get; set; } = Strings.PleaseWait;

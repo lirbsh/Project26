@@ -70,5 +70,15 @@ namespace Project26.ModelsLogic
             IDocumentReference dr = fs.Collection(collectonName).Document(id);
             dr.DeleteAsync().ContinueWith(OnComplete);
         }
+        public override  void UpdateField(string collectonName, string id, string fieldName, object fieldValue, Action<Task> OnComplete)
+        {
+            IDocumentReference dr = fs.Collection(collectonName).Document(id);
+            dr.UpdateAsync(fieldName, fieldValue).ContinueWith(OnComplete);
+        }
+        public override  void UpdateFields(string collectonName, string id, Dictionary<string, object> dict, Action<Task> OnComplete)
+        {
+            IDocumentReference dr = fs.Collection(collectonName).Document(id);
+            dr.UpdateAsync(dict).ContinueWith(OnComplete);
+        }
     }
 }

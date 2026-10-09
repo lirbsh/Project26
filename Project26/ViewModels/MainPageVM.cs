@@ -11,9 +11,29 @@ namespace Project26.ViewModels
 {
     internal partial class MainPageVM :Models.ObservableObject
     {
+        private Chat? _selectedChat;
         private readonly Chats chats = new();
         public ICommand AddChatCommand => new Command(AddChat);
         public ObservableCollection<Chat> ChatsList => chats.ChatsList;
+        public Chat? SelectedChat 
+        {  
+            get => _selectedChat;
+            set
+            {
+                _selectedChat = value;
+                _selectedChat!.IsMeHost = false;
+                OpenChatPage(_selectedChat);
+            }
+        }
+
+        private static void OpenChatPage(Chat? chat)
+        {
+            MainThread.InvokeOnMainThreadAsync(() =>
+            {
+                Shell.Current.Navigation.PushAsync(new ChatPage(chat!), true);
+            });
+        }
+
         private void AddChat()
         {
             chats.AddChat();
@@ -34,14 +54,7 @@ namespace Project26.ViewModels
 
         private void OnChatAdded(object? sender, ChatArgs e)
         {
-            string msg = e.Created ? Strings.ChatCreated : Strings.ChatCreationFailed;
-            MainThread.InvokeOnMainThreadAsync(() =>
-            {
-                Toast.Make(msg + Strings.NewLine + e.Chat.Id, ToastDuration.Long, 14).Show();
-                Shell.Current.Navigation.PushAsync(new ChatPage(e.Chat), true);
-            });
-           
-          
+            OpenChatPage(e.Chat);
         }
 
         private void OnChatsChanged(object? sender, EventArgs e)

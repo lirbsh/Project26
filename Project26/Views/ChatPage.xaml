@@ -7,9 +7,9 @@
              x:DataType="vm:ChatPageVM"
              Title="{x:Static gn:Strings.ChatTitle}">
     <Grid ColumnDefinitions="*,2*" RowDefinitions="Auto,Auto,Auto,Auto" Margin="10" ColumnSpacing="5" RowSpacing="10">
-        <Label Text="{x:Static gn:Strings.GuestName}"
+        <Label Text="{x:Static gn:Strings.OpponentName}"
             VerticalOptions="Center" />
-        <Label Text="{Binding GuestName}"
+        <Label Text="{Binding OpponentName}"
             Grid.Column="1"
             VerticalOptions="Center" />
         <Label Text="{x:Static gn:Strings.ReceivedMessage}"

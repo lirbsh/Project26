@@ -26,7 +26,7 @@ namespace Project26.ViewModels
             chat.RemoveSnapshotListener();
         }
 
-        public string GuestName => chat.GuestName!;
+        public string OpponentName => chat.IsMeHost ? chat.GuestName! : chat.HostName!;
         public string ReceivedMessage => chat.Message!;
         public string Message
         {

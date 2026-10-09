@@ -5,6 +5,32 @@ namespace Project26.ModelsLogic
 {
     internal class Chat : Models.ChatModel
     {
+        public override bool IsMeHost 
+        {
+            get => _isMeHost;
+            set
+            { 
+                _isMeHost = value;
+                if (!IsMeHost)
+                {
+                    GuestName = user.Name;
+                    IsFull = true;
+                    Dictionary<string, object> d = new()
+                    {
+                        { nameof(GuestName), GuestName! },
+                        { nameof(IsFull), IsFull }
+                    };
+                    fbd.UpdateFields(Keys.CollectionKey, Id!, d, OnUpdateComplete);
+
+                }
+            } 
+        }
+
+        private void OnUpdateComplete(Task task)
+        {
+            
+        }
+
         public override void SendMessage(Action<Task> OnComplete)
         {
             
