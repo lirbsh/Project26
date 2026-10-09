@@ -1,5 +1,6 @@
 ﻿using Plugin.CloudFirestore;
 using Project26.General;
+using Project26.Models;
 
 namespace Project26.ModelsLogic
 {
@@ -47,7 +48,13 @@ namespace Project26.ModelsLogic
 
         private void OnChange(IDocumentSnapshot? snapshot, Exception? error)
         {
-            
+            if(snapshot!= null && snapshot.Data != null) 
+            {
+                // Handle the updated data
+            } else 
+            {
+                ChatDeleted?.Invoke(this, new DeleteArgs(isMyDelete: false));
+            }
         }
 
         public override void RemoveSnapshotListener()
@@ -59,7 +66,7 @@ namespace Project26.ModelsLogic
         private void OnComplete(Task task)
         {
             if(task.IsCompletedSuccessfully)
-                ChatDeleted?.Invoke(this, EventArgs.Empty);
+                ChatDeleted?.Invoke(this, new DeleteArgs(isMyDelete: true));
         }
     }
 }

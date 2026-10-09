@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
 using Project26.General;
-using Project26.Views;
+using Project26.Models;
 using System.Windows.Input;
 
 namespace Project26.ViewModels
@@ -39,11 +39,15 @@ namespace Project26.ViewModels
             chat.ChatDeleted += OnChatDeleted;
         }
 
-        private void OnChatDeleted(object? sender, EventArgs e)
+        private void OnChatDeleted(object? sender, DeleteArgs e)
         {
             MainThread.InvokeOnMainThreadAsync(() =>
             {
                 Toast.Make( Strings.ChatDeleted, ToastDuration.Long, 14).Show();
+                if(!e.IsMyDelete)
+                {
+                    Shell.Current.Navigation.PopAsync();
+                }
             });
         }
     }

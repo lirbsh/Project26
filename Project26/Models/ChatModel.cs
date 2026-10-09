@@ -9,7 +9,8 @@ namespace Project26.Models
         protected bool _isMeHost = true;
         protected FbData fbd = new();
         protected User user = new();
-        public EventHandler? ChatDeleted { get; set; }
+        [Ignored]
+        public EventHandler<DeleteArgs>? ChatDeleted { get; set; }
         [Ignored]
         public string? Id { get; set; }
         [Ignored]
