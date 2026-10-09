@@ -1,7 +1,4 @@
-﻿using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
-using Project26.General;
-using Project26.Models;
+﻿using Project26.Models;
 using Project26.ModelsLogic;
 using Project26.Views;
 using System.Collections.ObjectModel;

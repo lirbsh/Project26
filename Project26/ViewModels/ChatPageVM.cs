@@ -43,11 +43,10 @@ namespace Project26.ViewModels
         {
             MainThread.InvokeOnMainThreadAsync(() =>
             {
-                Toast.Make( Strings.ChatDeleted, ToastDuration.Long, 14).Show();
-                if(!e.IsMyDelete)
-                {
+                if(e.IsMyDelete)
+                    Toast.Make(Strings.ChatDeleted, ToastDuration.Long, 14).Show();
+                else
                     Shell.Current.Navigation.PopAsync();
-                }
             });
         }
     }
