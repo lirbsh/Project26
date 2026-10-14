@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace Project26.ViewModels
 {
-    internal class ChatPageVM
+    internal partial class ChatPageVM : Models.ObservableObject
     {
         private readonly ModelsLogic.Chat chat;
         public ICommand SendMessageCommand { get; } = new Command(SendMessage);
@@ -37,6 +37,12 @@ namespace Project26.ViewModels
         {
             this.chat = chat;
             chat.ChatDeleted += OnChatDeleted;
+            chat.ChatChanged += OnChatChanged;
+        }
+
+        private void OnChatChanged(object? sender, DeleteArgs e)
+        {
+            OnPropertyChanged(nameof(OpponentName));
         }
 
         private void OnChatDeleted(object? sender, DeleteArgs e)
@@ -48,6 +54,12 @@ namespace Project26.ViewModels
                 else
                     Shell.Current.Navigation.PopAsync();
             });
+        }
+
+        private void OnChatChanged(object? sender, EventArgs e)
+        {
+            // run on UI thread; update UI or raise property-changed notifications as needed
+            MainThread.InvokeOnMainThreadAsync(() => { });
         }
     }
 }

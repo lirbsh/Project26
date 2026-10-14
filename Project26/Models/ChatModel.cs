@@ -10,6 +10,8 @@ namespace Project26.Models
         protected FbData fbd = new();
         protected User user = new();
         [Ignored]
+        public EventHandler? ChatChanged { get; set; }
+        [Ignored]
         public EventHandler<DeleteArgs>? ChatDeleted { get; set; }
         [Ignored]
         public string? Id { get; set; }

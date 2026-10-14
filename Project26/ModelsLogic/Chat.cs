@@ -48,9 +48,15 @@ namespace Project26.ModelsLogic
 
         private void OnChange(IDocumentSnapshot? snapshot, Exception? error)
         {
-            if(snapshot!= null && snapshot.Data != null) 
+            if (snapshot != null && snapshot.Data != null)
             {
-                // Handle the updated data
+                Chat c = snapshot?.ToObject<Chat>()!;
+                if (IsMeHost)
+                {
+                    GuestName = c.GuestName;
+                    ChatChanged?.Invoke(this, EventArgs.Empty);
+                }
+
             } else 
             {
                 ChatDeleted?.Invoke(this, new DeleteArgs(isMyDelete: false));
