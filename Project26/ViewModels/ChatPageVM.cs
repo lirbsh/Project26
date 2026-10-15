@@ -1,19 +1,19 @@
 ﻿using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Project26.General;
 using Project26.Models;
-using System.Windows.Input;
 
 namespace Project26.ViewModels
 {
-    internal partial class ChatPageVM : Models.ObservableObject
+    internal partial class ChatPageVM : ObservableObject
     {
         private readonly ModelsLogic.Chat chat;
-        public ICommand SendMessageCommand { get; } = new Command(SendMessage);
-
+        [RelayCommand]
         private static void SendMessage()
         {
-
+               Toast.Make("MessageSent", ToastDuration.Short, 14).Show();
         }
 
         internal void AddSnapshotListener()

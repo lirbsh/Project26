@@ -1,17 +1,17 @@
-﻿using Project26.Models;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Project26.Models;
 using Project26.ModelsLogic;
 using Project26.Views;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 
 namespace Project26.ViewModels
 {
-    internal partial class MainPageVM :Models.ObservableObject
+    internal partial class MainPageVM :ObservableObject
     {
         private Chat? _selectedChat;
         private readonly Chats chats = new();
-        public ICommand AddChatCommand => new Command(AddChat);
-        public ObservableCollection<Chat> ChatsList => chats.ChatsList;
+               public ObservableCollection<Chat> ChatsList => chats.ChatsList;
         public Chat? SelectedChat 
         {  
             get => _selectedChat;
@@ -30,7 +30,7 @@ namespace Project26.ViewModels
                 Shell.Current.Navigation.PushAsync(new ChatPage(chat!), true);
             });
         }
-
+        [RelayCommand]
         private void AddChat()
         {
             chats.AddChat();

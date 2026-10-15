@@ -6,10 +6,12 @@ namespace Project26.ModelsLogic
     {
         public override void CreateUser(string email, string password, string name)
         {
+            isBusy = true;
             fbd.CreateUser(email, password, name, OnCreateComplete);
         }
         public override void SignIn(string email, string password)
         {
+            isBusy = true;
             fbd.SignIn(email, password, OnSignInComplete);
         }
         protected override void OnCreateComplete(Task task)
@@ -24,6 +26,7 @@ namespace Project26.ModelsLogic
         }
         protected override void UpdateStatus(Task task)
         {
+            isBusy = false;
             Status = task.IsCompletedSuccessfully ? Strings.Success : 
                     task.Exception != null ? fbd.GetErrorMessage(task.Exception.Message) : 
                             Strings.UnknownError;
