@@ -40,7 +40,7 @@ namespace Project26.ViewModels
             chat.ChatChanged += OnChatChanged;
         }
 
-        private void OnChatChanged(object? sender, DeleteArgs e)
+        private void OnChatChanged(object? sender, EventArgs e)
         {
             OnPropertyChanged(nameof(OpponentName));
         }
@@ -54,12 +54,6 @@ namespace Project26.ViewModels
                 else
                     Shell.Current.Navigation.PopAsync();
             });
-        }
-
-        private void OnChatChanged(object? sender, EventArgs e)
-        {
-            // run on UI thread; update UI or raise property-changed notifications as needed
-            MainThread.InvokeOnMainThreadAsync(() => { });
         }
     }
 }
