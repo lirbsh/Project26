@@ -6,7 +6,7 @@
              x:Class="Project26.Views.ChatPage"
              x:DataType="vm:ChatPageVM"
              Title="{x:Static gn:Strings.ChatTitle}">
-    <Grid ColumnDefinitions="*,2*" RowDefinitions="Auto,Auto,Auto,Auto" Margin="10" ColumnSpacing="5" RowSpacing="10">
+    <Grid ColumnDefinitions="*,2*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" Margin="10" ColumnSpacing="5" RowSpacing="10">
         <Label Text="{x:Static gn:Strings.OpponentName}"
             VerticalOptions="Center" />
         <Label Text="{Binding OpponentName}"
@@ -15,7 +15,9 @@
         <Label Text="{x:Static gn:Strings.ReceivedMessage}"
             Grid.Row="1"
             VerticalOptions="Center" />
-        <Label Text="{Binding ReceivedMessage}"
+        <Label 
+            Text="{Binding ReceivedMessage}" 
+            FontAttributes="{Binding ReceivedMessageBold, Converter={StaticResource fontAttributeConvert}}"
             Grid.Row="1"
             Grid.Column="1"
             VerticalOptions="Center" />
@@ -26,8 +28,15 @@
             Grid.Row="2"
             Grid.Column="1"
             VerticalOptions="Center" />
-        <Button Text="{x:Static gn:Strings.Send}"
+        <Label Text="{x:Static gn:Strings.Bold}"
             Grid.Row="3"
+            VerticalOptions="Center" />
+        <Switch IsToggled="{Binding SendBoldMessage} "
+            Grid.Row="3"
+            Grid.Column="1"
+            VerticalOptions="Center" />
+        <Button Text="{x:Static gn:Strings.Send}"
+            Grid.Row="4"
             Grid.ColumnSpan="2"
             Command="{Binding SendMessageCommand}" />
     </Grid>

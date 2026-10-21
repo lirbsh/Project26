@@ -1,6 +1,7 @@
-﻿using Plugin.CloudFirestore.Attributes;
-using Project26.ModelsLogic;
+﻿using Plugin.CloudFirestore;
+using Plugin.CloudFirestore.Attributes;
 using Project26.General;
+using Project26.ModelsLogic;
 
 namespace Project26.Models
 {
@@ -10,21 +11,36 @@ namespace Project26.Models
         protected FbData fbd = new();
         protected User user = new();
         [Ignored]
-        public EventHandler? ChatChanged { get; set; }
+        public EventHandler? ChatStarted { get; set; }
+        [Ignored]
+        public EventHandler<ChatChangedArgs>? ChatChanged { get; set; }
         [Ignored]
         public EventHandler<DeleteArgs>? ChatDeleted { get; set; }
         [Ignored]
         public string? Id { get; set; }
         [Ignored]
-        public abstract bool IsMeHost { get; set; } 
+        public abstract bool IsMeHost { get; set; }
+        [Ignored]
+        public bool IsMyTurn => IsMeHost ? IsHostTurn : !IsHostTurn;
+        [Ignored]
+        public string? OpponentName => IsMeHost ? GuestName : HostName;
+        [Ignored]
+        public string? ReceivedMessage { get; protected set; }
+        [Ignored]
+        public bool ReceivedMessageBold { get; protected set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string? HostName { get; set; }
         public string? GuestName { get; set; } = Strings.PleaseWait;
-        public string? Message { get; set; }
+        public string? Message { get; set; } = string.Empty;
+        public bool SendBoldMessage { get; set; }
+        public bool IsHostMessage { get; set; }
         public bool IsFull { get; set; }
         public bool IsHostTurn { get; set; }
         public abstract void SendMessage(Action<Task> OnComplete);
         public abstract string SetFbDocument(Action<Task> OnComplete);
+        protected abstract void OnChange(IDocumentSnapshot? snapshot, Exception? error);
+        protected abstract void OnDeleteComplete(Task task);
+        protected abstract void OnStartChatComplete(Task task);
         public abstract void AddSnapshotListener();
         public abstract void RemoveSnapshotListener();
     }

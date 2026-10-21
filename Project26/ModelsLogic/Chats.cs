@@ -4,16 +4,19 @@ using Project26.Models;
 
 namespace Project26.ModelsLogic
 {
-    internal class Chats : Models.ChatsModel
+    internal class Chats : ChatsModel
     {
         public override void AddChat()
         {
+            isBusy = true;
+            StatusChanged?.Invoke(this, EventArgs.Empty);
             newChat = new() { HostName = user.Name };
             newChat.Id = newChat.SetFbDocument(OnComplete);
         }
 
         private void OnComplete(Task task)
         {
+            isBusy = false;
             ChatAdded?.Invoke(this, new ChatArgs(newChat!, task.IsCompletedSuccessfully));
         }
 

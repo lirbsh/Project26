@@ -30,14 +30,21 @@ namespace Project26.ViewModels
                 Shell.Current.Navigation.PushAsync(new ChatPage(chat!), true);
             });
         }
-        [RelayCommand]
+        [RelayCommand(CanExecute = nameof(CanAddChat))]
         private void AddChat()
         {
             chats.AddChat();
         }
+
+        private bool CanAddChat()
+        {
+            return chats.CanAddChat;
+        }
+
         public void AddSnapshotListener()
         {
             chats.AddSnapshotListener();
+            AddChatCommand.NotifyCanExecuteChanged();
         }
         public void RemoveSnapshotListener()
         {
@@ -47,6 +54,12 @@ namespace Project26.ViewModels
         {
             chats.ChatsChanged += OnChatsChanged;
             chats.ChatAdded += OnChatAdded;
+            chats.StatusChanged += OnStatusChanged;
+        }
+
+        private void OnStatusChanged(object? sender, EventArgs e)
+        {
+            AddChatCommand.NotifyCanExecuteChanged();
         }
 
         private void OnChatAdded(object? sender, ChatArgs e)

@@ -4,7 +4,7 @@ using Project26.Models;
 
 namespace Project26.ModelsLogic
 {
-    internal class Chat : Models.ChatModel
+    internal class Chat : ChatModel
     {
         public override bool IsMeHost 
         {
@@ -21,20 +21,27 @@ namespace Project26.ModelsLogic
                         { nameof(GuestName), GuestName! },
                         { nameof(IsFull), IsFull }
                     };
-                    fbd.UpdateFields(Keys.CollectionKey, Id!, d, OnUpdateComplete);
-
+                    fbd.UpdateFields(Keys.CollectionKey, Id!, d, OnStartChatComplete);
                 }
             } 
         }
-
-        private void OnUpdateComplete(Task task)
+        protected override void OnStartChatComplete(Task task)
         {
-            
+            if (task.IsCompletedSuccessfully)
+                ChatStarted?.Invoke(this, EventArgs.Empty);
         }
 
         public override void SendMessage(Action<Task> OnComplete)
         {
-            
+            IsHostTurn = !IsHostTurn;
+            Dictionary<string, object> d = new() 
+            { 
+                { nameof(Message), Message! },
+                { nameof(SendBoldMessage), SendBoldMessage },
+                { nameof(IsHostMessage), IsMeHost },
+                { nameof(IsHostTurn), IsHostTurn }
+            };
+            fbd.UpdateFields(Keys.CollectionKey, Id!, d, OnComplete);
         }
 
         public override string SetFbDocument(Action<Task> OnComplete)
@@ -46,30 +53,32 @@ namespace Project26.ModelsLogic
             fbd.ilr = fbd.AddSnapshotListener(Keys.CollectionKey, Id!, OnChange);
         }
 
-        private void OnChange(IDocumentSnapshot? snapshot, Exception? error)
+        protected override void OnChange(IDocumentSnapshot? snapshot, Exception? error)
         {
             if (snapshot != null && snapshot.Data != null)
             {
                 Chat c = snapshot?.ToObject<Chat>()!;
-                if (IsMeHost)
+                GuestName = c.GuestName;
+                IsHostTurn = c.IsHostTurn;
+                if (IsMeHost && !c.IsHostMessage || !IsMeHost && c.IsHostMessage)
                 {
-                    GuestName = c.GuestName;
-                    ChatChanged?.Invoke(this, EventArgs.Empty);
+                    ReceivedMessage = c.Message;
+                    ReceivedMessageBold = c.SendBoldMessage;
                 }
-
-            } else 
-            {
+                string? msg = IsMyTurn? Strings.PleaseSend: Strings.PleaseWait;
+                ChatChanged?.Invoke(this, new ChatChangedArgs(msg));
+            } 
+            else 
                 ChatDeleted?.Invoke(this, new DeleteArgs(isMyDelete: false));
-            }
         }
 
         public override void RemoveSnapshotListener()
         {
             fbd.RemoveSnapshotListener();
-            fbd.DeleteDocument(Keys.CollectionKey, Id!, OnComplete);
+            fbd.DeleteDocument(Keys.CollectionKey, Id!, OnDeleteComplete);
         }
 
-        private void OnComplete(Task task)
+        protected override void OnDeleteComplete(Task task)
         {
             if(task.IsCompletedSuccessfully)
                 ChatDeleted?.Invoke(this, new DeleteArgs(isMyDelete: true));
