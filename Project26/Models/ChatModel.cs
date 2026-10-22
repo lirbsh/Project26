@@ -10,7 +10,6 @@ namespace Project26.Models
         protected bool _isMeHost = true;
         protected FbData fbd = new();
         protected User user = new();
-        public Message Message { get; set; } = new();
         [Ignored]
         public EventHandler? ChatStarted { get; set; }
         [Ignored]
@@ -29,6 +28,7 @@ namespace Project26.Models
         public string? ReceivedMessage { get; protected set; }
         [Ignored]
         public bool ReceivedMessageBold { get; protected set; }
+        public Message Message { get; set; } = new();
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string? HostName { get; set; }
         public string? GuestName { get; set; } = Strings.PleaseWait;
