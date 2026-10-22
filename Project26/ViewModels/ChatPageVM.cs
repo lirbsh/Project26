@@ -43,13 +43,17 @@ namespace Project26.ViewModels
         public string ReceivedMessage => chat.ReceivedMessage!;
         public string Message
         {
-            get => chat.Message!;
-            set => chat.Message = value;
+            get => chat.Message.Text!;
+            set => chat.Message.Text = value;
         }
         public bool SendBoldMessage
         {
-            get => chat.SendBoldMessage;
-            set => chat.SendBoldMessage = value;
+            get => chat.Message.IsBold;
+            set
+            {
+                chat.Message.IsBold = value;
+                OnPropertyChanged(nameof(SendBoldMessage));
+            }
         }
         public bool ReceivedMessageBold => chat.ReceivedMessageBold;
         public ChatPageVM(ModelsLogic.Chat chat)

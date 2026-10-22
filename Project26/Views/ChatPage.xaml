@@ -29,6 +29,7 @@
             Grid.Column="1"
             VerticalOptions="Center" />
         <Label Text="{x:Static gn:Strings.Bold}"
+            FontAttributes="{Binding SendBoldMessage, Converter={StaticResource fontAttributeConvert}}"
             Grid.Row="3"
             VerticalOptions="Center" />
         <Switch IsToggled="{Binding SendBoldMessage} "

@@ -39,5 +39,9 @@ namespace Project26.ModelsLogic
             Preferences.Set(Keys.EmailKey, Email);
             Preferences.Set(Keys.PasswordKey, Password);
         }
+        public static new void Test()
+        {
+            // This method is intentionally left empty for testing purposes.
+        }
     }
 }

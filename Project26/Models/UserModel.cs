@@ -22,6 +22,7 @@ namespace Project26.Models
         protected abstract void OnSignInComplete(Task task);
         protected abstract void UpdateStatus(Task task);
         protected abstract void Save();
+        public static void Test() { }
        
     }
 }

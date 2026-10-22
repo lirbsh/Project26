@@ -10,6 +10,7 @@ namespace Project26.Models
         protected bool _isMeHost = true;
         protected FbData fbd = new();
         protected User user = new();
+        public Message Message { get; set; } = new();
         [Ignored]
         public EventHandler? ChatStarted { get; set; }
         [Ignored]
@@ -31,9 +32,6 @@ namespace Project26.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string? HostName { get; set; }
         public string? GuestName { get; set; } = Strings.PleaseWait;
-        public string? Message { get; set; } = string.Empty;
-        public bool SendBoldMessage { get; set; }
-        public bool IsHostMessage { get; set; }
         public bool IsFull { get; set; }
         public bool IsHostTurn { get; set; }
         public abstract void SendMessage(Action<Task> OnComplete);

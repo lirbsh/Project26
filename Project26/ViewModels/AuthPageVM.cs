@@ -42,17 +42,17 @@ namespace Project26.ViewModels
 
         private void OnStatusChanged(object? sender, EventArgs e)
         {
-            OnPropertyChanged(nameof(Status));
-            if (user.IsAuthenticated)
-                MainThread.InvokeOnMainThreadAsync(() =>
-                {
-                    Application.Current?.Windows[0].Page  = new AppShell();
-                });
-            else
+            MainThread.InvokeOnMainThreadAsync(() =>
             {
-                SignInCommand.NotifyCanExecuteChanged();
-                CreateUserCommand.NotifyCanExecuteChanged();
-            }
+                OnPropertyChanged(nameof(Status));
+                if (user.IsAuthenticated)
+                        Application.Current?.Windows[0].Page  = new AppShell();
+                else
+                {
+                    SignInCommand.NotifyCanExecuteChanged();
+                    CreateUserCommand.NotifyCanExecuteChanged();
+                }
+            });
         }
     }
 }

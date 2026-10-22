@@ -16,6 +16,7 @@ namespace Project26.ModelsLogic
                 {
                     GuestName = user.Name;
                     IsFull = true;
+                    Message.IsHostMessage = false;
                     Dictionary<string, object> d = new()
                     {
                         { nameof(GuestName), GuestName! },
@@ -36,9 +37,7 @@ namespace Project26.ModelsLogic
             IsHostTurn = !IsHostTurn;
             Dictionary<string, object> d = new() 
             { 
-                { nameof(Message), Message! },
-                { nameof(SendBoldMessage), SendBoldMessage },
-                { nameof(IsHostMessage), IsMeHost },
+                { nameof(Message), Message },
                 { nameof(IsHostTurn), IsHostTurn }
             };
             fbd.UpdateFields(Keys.CollectionKey, Id!, d, OnComplete);
@@ -60,10 +59,10 @@ namespace Project26.ModelsLogic
                 Chat c = snapshot?.ToObject<Chat>()!;
                 GuestName = c.GuestName;
                 IsHostTurn = c.IsHostTurn;
-                if (IsMeHost && !c.IsHostMessage || !IsMeHost && c.IsHostMessage)
+                if (IsMeHost && !c.Message.IsHostMessage || !IsMeHost && c.Message.IsHostMessage)
                 {
-                    ReceivedMessage = c.Message;
-                    ReceivedMessageBold = c.SendBoldMessage;
+                    ReceivedMessage = c.Message.Text;
+                    ReceivedMessageBold = c.Message.IsBold;
                 }
                 string? msg = IsMyTurn? Strings.PleaseSend: Strings.PleaseWait;
                 ChatChanged?.Invoke(this, new ChatChangedArgs(msg));

@@ -10,7 +10,7 @@ namespace Project26.ModelsLogic
         {
             isBusy = true;
             StatusChanged?.Invoke(this, EventArgs.Empty);
-            newChat = new() { HostName = user.Name };
+            newChat = new() { HostName = user.Name};
             newChat.Id = newChat.SetFbDocument(OnComplete);
         }
 
