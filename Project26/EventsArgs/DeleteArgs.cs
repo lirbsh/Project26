@@ -1,4 +1,4 @@
-﻿namespace Project26.Models
+﻿namespace Project26.EventsArgs
 {
     internal class DeleteArgs(bool isMyDelete) : EventArgs
     {

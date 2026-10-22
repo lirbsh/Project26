@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Project26.Models;
+using Project26.EventsArgs;
 using Project26.ModelsLogic;
 using Project26.Views;
 using System.Collections.ObjectModel;
@@ -22,7 +22,6 @@ namespace Project26.ViewModels
                 OpenChatPage(_selectedChat);
             }
         }
-
         private static void OpenChatPage(Chat? chat)
         {
             MainThread.InvokeOnMainThreadAsync(() =>
@@ -30,17 +29,16 @@ namespace Project26.ViewModels
                 Shell.Current.Navigation.PushAsync(new ChatPage(chat!), true);
             });
         }
+
         [RelayCommand(CanExecute = nameof(CanAddChat))]
         private void AddChat()
         {
             chats.AddChat();
         }
-
         private bool CanAddChat()
         {
             return chats.CanAddChat;
         }
-
         public void AddSnapshotListener()
         {
             chats.AddSnapshotListener();
@@ -56,17 +54,14 @@ namespace Project26.ViewModels
             chats.ChatAdded += OnChatAdded;
             chats.StatusChanged += OnStatusChanged;
         }
-
         private void OnStatusChanged(object? sender, EventArgs e)
         {
             AddChatCommand.NotifyCanExecuteChanged();
         }
-
         private void OnChatAdded(object? sender, ChatArgs e)
         {
             OpenChatPage(e.Chat);
         }
-
         private void OnChatsChanged(object? sender, EventArgs e)
         {
             OnPropertyChanged(nameof(ChatsList));

@@ -58,7 +58,6 @@ namespace Project26.ModelsLogic
             ICollectionReference cr = fs.Collection(collectonName);
             cr.WhereEqualsTo(fName, fValue).GetAsync().ContinueWith(t => OnComplete(t.Result));
         }
-
         public override string SetDocument(object obj, string collectonName, string? id, Action<Task> OnComplete)
         {
             IDocumentReference dr = string.IsNullOrEmpty(id) ? fs.Collection(collectonName).Document() : fs.Collection(collectonName).Document(id);

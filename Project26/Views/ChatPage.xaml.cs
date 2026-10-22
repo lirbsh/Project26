@@ -1,7 +1,6 @@
 using Project26.ViewModels;
 
 namespace Project26.Views;
-
 public partial class ChatPage : ContentPage
 {
     private readonly ChatPageVM cpVm;

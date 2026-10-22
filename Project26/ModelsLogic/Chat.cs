@@ -1,4 +1,5 @@
 ﻿using Plugin.CloudFirestore;
+using Project26.EventsArgs;
 using Project26.General;
 using Project26.Models;
 
@@ -31,7 +32,6 @@ namespace Project26.ModelsLogic
             if (task.IsCompletedSuccessfully)
                 ChatStarted?.Invoke(this, EventArgs.Empty);
         }
-
         public override void SendMessage(Action<Task> OnComplete)
         {
             IsHostTurn = !IsHostTurn;
@@ -42,7 +42,6 @@ namespace Project26.ModelsLogic
             };
             fbd.UpdateFields(Keys.CollectionKey, Id!, d, OnComplete);
         }
-
         public override string SetFbDocument(Action<Task> OnComplete)
         {
             return fbd.SetDocument(this, Keys.CollectionKey, Id, OnComplete);
@@ -51,7 +50,6 @@ namespace Project26.ModelsLogic
         {
             fbd.ilr = fbd.AddSnapshotListener(Keys.CollectionKey, Id!, OnChange);
         }
-
         protected override void OnChange(IDocumentSnapshot? snapshot, Exception? error)
         {
             if (snapshot != null && snapshot.Data != null)
@@ -64,19 +62,17 @@ namespace Project26.ModelsLogic
                     ReceivedMessage = c.Message.Text;
                     ReceivedMessageBold = c.Message.IsBold;
                 }
-                string? msg = IsMyTurn? Strings.PleaseSend: Strings.PleaseWait;
-                ChatChanged?.Invoke(this, new ChatChangedArgs(msg));
+                string? status = IsMyTurn? Strings.PleaseSend: Strings.PleaseWait;
+                ChatChanged?.Invoke(this, new ChatChangedArgs(status));
             } 
             else 
                 ChatDeleted?.Invoke(this, new DeleteArgs(isMyDelete: false));
         }
-
         public override void RemoveSnapshotListener()
         {
             fbd.RemoveSnapshotListener();
             fbd.DeleteDocument(Keys.CollectionKey, Id!, OnDeleteComplete);
         }
-
         protected override void OnDeleteComplete(Task task)
         {
             if(task.IsCompletedSuccessfully)

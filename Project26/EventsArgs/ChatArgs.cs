@@ -1,6 +1,6 @@
 ﻿using Project26.ModelsLogic;
 
-namespace Project26.Models
+namespace Project26.EventsArgs
 {
     internal class ChatArgs(Chat chat,bool created) : EventArgs
     {

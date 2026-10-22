@@ -2,8 +2,8 @@
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Project26.EventsArgs;
 using Project26.General;
-using Project26.Models;
 
 namespace Project26.ViewModels
 {
@@ -16,29 +16,24 @@ namespace Project26.ViewModels
                chat.SendMessage(OnSendComplete);
                SendMessageCommand.NotifyCanExecuteChanged();
         }
-
         private void OnSendComplete(Task task)
         {
             if(task.IsFaulted) 
                 Toast.Make(Strings.MessageNotSent, ToastDuration.Long, 14).Show();
             SendMessageCommand.NotifyCanExecuteChanged();
         }
-
         private bool CanSendMessage()
         {
             return chat.IsMyTurn;
         }
-
         internal void AddSnapshotListener()
         {
             chat.AddSnapshotListener();
         }
-
         internal void RemoveSnapshotListener()
         {
             chat.RemoveSnapshotListener();
         }
-
         public string OpponentName => chat.IsMeHost ? chat.GuestName! : chat.HostName!;
         public string ReceivedMessage => chat.ReceivedMessage!;
         public string Message
@@ -63,7 +58,6 @@ namespace Project26.ViewModels
             chat.ChatChanged += OnChatChanged;
             chat.ChatDeleted += OnChatDeleted;
         }
-
         private void OnChatStarted(object? sender, EventArgs e)
         {
             MainThread.InvokeOnMainThreadAsync(() =>
@@ -71,7 +65,6 @@ namespace Project26.ViewModels
                 Toast.Make(Strings.ChatStarted, ToastDuration.Long, 14).Show();
             });
         }
-
         private void OnChatChanged(object? sender, ChatChangedArgs e)
         {
             OnPropertyChanged(nameof(OpponentName));
@@ -80,10 +73,9 @@ namespace Project26.ViewModels
             SendMessageCommand.NotifyCanExecuteChanged();
             MainThread.InvokeOnMainThreadAsync(() =>
             {
-                Toast.Make(e.Message, ToastDuration.Long, 14).Show();
+                Toast.Make(e.Status, ToastDuration.Long, 14).Show();
             });
         }
-
         private void OnChatDeleted(object? sender, DeleteArgs e)
         {
             MainThread.InvokeOnMainThreadAsync(() =>
