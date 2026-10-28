@@ -28,5 +28,7 @@
         public const string ChatDeleted = "Chat deleted";
         public const string MessageNotSent = "Status not sent";
         public const string ChatStarted = "Chat started Please send a message";
+        public const string Quit = "Quit";
+        public const string QuitChat = "Quit Chat";
     }
 }

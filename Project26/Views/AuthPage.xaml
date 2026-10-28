@@ -28,6 +28,8 @@
                     Command="{Binding SignInCommand}" />
             <Button Text="{x:Static gn:Strings.Register}"
                     Command="{Binding CreateUserCommand}" />
+            <Button Text="{x:Static gn:Strings.Quit}"
+                    Command="{Binding QuitCommand}" />
             <Label Text="{Binding Status}"
                 FontSize="24"
                 HorizontalOptions="Center"

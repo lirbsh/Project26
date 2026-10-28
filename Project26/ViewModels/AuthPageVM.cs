@@ -21,6 +21,11 @@ namespace Project26.ViewModels
             user.CreateUser(Email, Password, Name);
             CreateUserCommand.NotifyCanExecuteChanged();
         }
+        [RelayCommand]
+        private void Quit()
+        {
+            Application.Current?.Quit();
+        }   
         private bool CanCreateUser()
         {
             return user.CanCreate;

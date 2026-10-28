@@ -16,6 +16,11 @@ namespace Project26.ViewModels
                chat.SendMessage(OnSendComplete);
                SendMessageCommand.NotifyCanExecuteChanged();
         }
+        [RelayCommand]
+        private void QuitChat()
+        {
+            Shell.Current.Navigation.PopAsync();
+        }
         private void OnSendComplete(Task task)
         {
             if(task.IsFaulted) 
