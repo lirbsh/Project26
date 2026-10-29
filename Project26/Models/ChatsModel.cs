@@ -9,8 +9,8 @@ namespace Project26.Models
     {
         protected bool isBusy = false;
         protected Chat? newChat;
-        protected FbData fbd = new();
-        protected User user = new();
+        protected FbData fbd = FbData.Instance;
+        protected User user = User.Instance;
         public EventHandler? StatusChanged { get; set; }
         public EventHandler? ChatsChanged { get; set; }
         public EventHandler<ChatArgs>? ChatAdded { get; set; }

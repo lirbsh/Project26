@@ -16,5 +16,11 @@
         public const string Apostrophe = "\"";
         public const string Comma = ",";
         public const string Colon = ":";
+        public const int HourToMillisconds = 3600000;
+        public const int SecondToMillisconds = 1000;
+        public const long FinishedSignal = -1000;
+        public const long TotalAnimationTime = 4000;
+        public const long AnimationTimeInterval = 50;
+
     }
 }

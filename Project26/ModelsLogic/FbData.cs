@@ -6,6 +6,8 @@ namespace Project26.ModelsLogic
 {
     internal class FbData : Models.FbDataModel
     {
+        public static FbData Instance =>
+            IPlatformApplication.Current?.Services.GetService<FbData>() ?? new FbData();
         public override string GetErrorMessage(string errMessage)
         {
             string retMessage;
@@ -57,6 +59,11 @@ namespace Project26.ModelsLogic
         {
             ICollectionReference cr = fs.Collection(collectonName);
             cr.WhereEqualsTo(fName, fValue).GetAsync().ContinueWith(t => OnComplete(t.Result));
+        }
+        public override void GetDocumentsWhereLessThan(string collectonName, string fName, object fValue, Action<IQuerySnapshot> OnComplete)
+        {
+            ICollectionReference cr = fs.Collection(collectonName);
+            cr.WhereLessThan(fName, fValue).GetAsync().ContinueWith(t => OnComplete(t.Result));
         }
         public override string SetDocument(object obj, string collectonName, string? id, Action<Task> OnComplete)
         {

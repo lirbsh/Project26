@@ -5,16 +5,20 @@
              xmlns:gn="clr-namespace:Project26.General"
              x:Class="Project26.Views.AuthPage"
              x:DataType="vm:AuthPageVM">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Grid RowDefinitions="Auto,Auto,*" RowSpacing="10">
         <Label Text="{x:Static gn:Strings.Auth}"
+               Opacity="{Binding AnimationOpacity}"
                FontSize="24"
                HorizontalOptions="Center"
                VerticalOptions="Center" />
-        <StackLayout Grid.Row="1"
+        <Label Text="{Binding UserStateAction}"
+               FontAttributes="Bold"
+               TextColor="Blue"
+               Grid.Row="1"
+               FontSize="18"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+        <StackLayout Grid.Row="2"
                      Padding="20"
                      Spacing="10">
             <Entry Placeholder="{x:Static gn:Strings.Name}"

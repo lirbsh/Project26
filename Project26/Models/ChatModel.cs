@@ -9,8 +9,8 @@ namespace Project26.Models
     internal abstract class ChatModel
     {
         protected bool _isMeHost = true;
-        protected FbData fbd = new();
-        protected User user = new();
+        protected FbData fbd = FbData.Instance;
+        protected User user = User.Instance;
         [Ignored]
         public EventHandler? ChatStarted { get; set; }
         [Ignored]

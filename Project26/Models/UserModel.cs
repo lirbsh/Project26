@@ -5,7 +5,7 @@ namespace Project26.Models
 {
     internal abstract class UserModel
     {
-        protected FbData fbd = new();
+        protected FbData fbd = FbData.Instance;
         protected bool isBusy = false;
         public EventHandler? StatusChanged;
         public string Email { get; set; } = Preferences.Get(Keys.EmailKey, string.Empty);   
@@ -22,7 +22,5 @@ namespace Project26.Models
         protected abstract void OnSignInComplete(Task task);
         protected abstract void UpdateStatus(Task task);
         protected abstract void Save();
-        public static void Test() { }
-       
     }
 }

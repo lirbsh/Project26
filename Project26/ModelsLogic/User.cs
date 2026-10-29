@@ -4,6 +4,8 @@ namespace Project26.ModelsLogic
 {
     internal class User : Models.UserModel
     {
+        public static User Instance =>
+            IPlatformApplication.Current?.Services.GetService<User>() ?? new User();
         public override void CreateUser(string email, string password, string name)
         {
             isBusy = true;
@@ -39,9 +41,6 @@ namespace Project26.ModelsLogic
             Preferences.Set(Keys.EmailKey, Email);
             Preferences.Set(Keys.PasswordKey, Password);
         }
-        public static new void Test()
-        {
-            // This method is intentionally left empty for testing purposes.
-        }
+               
     }
 }

@@ -1,18 +1,33 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Project26.ModelsLogic;
+using Project26.General;
 
 namespace Project26.ViewModels
 {
     internal partial class AuthPageVM : ObservableObject
     {
-        private readonly ModelsLogic.User user = new();
+        private readonly Animatioms animatioms = new() { IsLooping = true };
+        private readonly User user = User.Instance;
         public string Email { get =>user.Email; set=>user.Email = value; }
         public string Password { get => user.Password; set => user.Password = value; }
         public string Name { get => user.Name; set => user.Name = value; }
         public string Status { get => user.Status; set => user.Status = value; }
+        public double AnimationOpacity => animatioms.Opacity;
+        public string UserStateAction => animatioms.Text;
         public AuthPageVM()
         {
             user.StatusChanged += OnStatusChanged;
+            animatioms.OpacityChanged += OnOpacityChanged;
+            animatioms.TextChanged += OnTextChanged;
+        }
+        private void OnTextChanged(object? sender, EventArgs e)
+        {
+            OnPropertyChanged(nameof(UserStateAction));
+        }
+        private void OnOpacityChanged(object? sender, EventArgs e)
+        {
+            OnPropertyChanged(nameof(AnimationOpacity));
         }
 
         [RelayCommand(CanExecute = nameof(CanCreateUser))]
@@ -22,7 +37,7 @@ namespace Project26.ViewModels
             CreateUserCommand.NotifyCanExecuteChanged();
         }
         [RelayCommand]
-        private void Quit()
+        private static void Quit()
         {
             Application.Current?.Quit();
         }   
@@ -54,6 +69,15 @@ namespace Project26.ViewModels
                     CreateUserCommand.NotifyCanExecuteChanged();
                 }
             });
+        }
+        internal void StartAnimations()
+        {
+            animatioms.StartOpacityAnimation();
+            animatioms.StartTextAnimation(user.IsRegistered ? Strings.Login : Strings.Register);
+        }
+        internal void StopAnimations()
+        {
+            animatioms.StopAnimations();
         }
     }
 }
