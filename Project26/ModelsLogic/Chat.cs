@@ -61,6 +61,7 @@ namespace Project26.ModelsLogic
                 {
                     ReceivedMessage = c.Message.Text;
                     ReceivedMessageBold = c.Message.IsBold;
+                    ReceivedMessageColor = c.Message.Color;
                 }
                 string? status = IsMyTurn? Strings.PleaseSend: Strings.PleaseWait;
                 ChatChanged?.Invoke(this, new ChatChangedArgs(status));

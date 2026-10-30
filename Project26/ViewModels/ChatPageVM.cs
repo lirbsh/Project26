@@ -4,11 +4,13 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Project26.EventsArgs;
 using Project26.General;
+using Project26.ModelsLogic;
 
 namespace Project26.ViewModels
 {
     internal partial class ChatPageVM : ObservableObject
     {
+        private readonly ColorsGrid colorsGrid;
         private readonly ModelsLogic.Chat chat;
         [RelayCommand(CanExecute = nameof(CanSendMessage))]
         private void SendMessage()
@@ -16,8 +18,9 @@ namespace Project26.ViewModels
                chat.SendMessage(OnSendComplete);
                SendMessageCommand.NotifyCanExecuteChanged();
         }
+
         [RelayCommand]
-        private void QuitChat()
+        private static void QuitChat()
         {
             Shell.Current.Navigation.PopAsync();
         }
@@ -41,9 +44,10 @@ namespace Project26.ViewModels
         }
         public string OpponentName => chat.IsMeHost ? chat.GuestName! : chat.HostName!;
         public string ReceivedMessage => chat.ReceivedMessage!;
+        public Color SendMessageColor => colorsGrid.SelectedColor;
         public string Message
         {
-            get => chat.Message.Text!;
+            get => chat.Message.Text;
             set => chat.Message.Text = value;
         }
         public bool SendBoldMessage
@@ -56,13 +60,23 @@ namespace Project26.ViewModels
             }
         }
         public bool ReceivedMessageBold => chat.ReceivedMessageBold;
-        public ChatPageVM(ModelsLogic.Chat chat)
+        public Color ReceivedMessageColor => chat.ReceivedMessageColor;
+        public ChatPageVM(ModelsLogic.Chat chat, Grid grdColors)
         {
+            colorsGrid = new ColorsGrid(grdColors);
+            colorsGrid.ColorSelected += OnColorSelected;
             this.chat = chat;
             chat.ChatStarted += OnChatStarted;
             chat.ChatChanged += OnChatChanged;
             chat.ChatDeleted += OnChatDeleted;
         }
+
+        private void OnColorSelected(object? sender, EventArgs e)
+        {
+            chat.Message.Color = colorsGrid.SelectedColor;
+            OnPropertyChanged(nameof(SendMessageColor));
+        }
+
         private void OnChatStarted(object? sender, EventArgs e)
         {
             MainThread.InvokeOnMainThreadAsync(() =>
@@ -75,6 +89,7 @@ namespace Project26.ViewModels
             OnPropertyChanged(nameof(OpponentName));
             OnPropertyChanged(nameof(ReceivedMessage));
             OnPropertyChanged(nameof(ReceivedMessageBold));
+            OnPropertyChanged(nameof(ReceivedMessageColor));
             SendMessageCommand.NotifyCanExecuteChanged();
             MainThread.InvokeOnMainThreadAsync(() =>
             {

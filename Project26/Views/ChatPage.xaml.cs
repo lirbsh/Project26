@@ -7,7 +7,7 @@ public partial class ChatPage : ContentPage
     internal ChatPage(ModelsLogic.Chat chat)
 	{
 		InitializeComponent();
-        cpVm = new ViewModels.ChatPageVM(chat);
+        cpVm = new ViewModels.ChatPageVM(chat, grdColors);
         BindingContext = cpVm;
     }
     protected override void OnAppearing()

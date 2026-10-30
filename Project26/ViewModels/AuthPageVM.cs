@@ -1,7 +1,9 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Project26.ModelsLogic;
 using Project26.General;
+using Project26.ModelsLogic;
 
 namespace Project26.ViewModels
 {
@@ -78,6 +80,12 @@ namespace Project26.ViewModels
         internal void StopAnimations()
         {
             animatioms.StopAnimations();
+        }
+
+        internal static bool OnBackButtonPressed()
+        {
+            Toast.Make(Strings.PreventBackMsg, ToastDuration.Long, 14).Show();
+            return true; // Prevent back navigation
         }
     }
 }

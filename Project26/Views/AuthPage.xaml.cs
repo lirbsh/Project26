@@ -20,4 +20,8 @@ public partial class AuthPage : ContentPage
         base.OnDisappearing();
         apVM.StopAnimations();
     }
+    protected override bool OnBackButtonPressed()
+    {
+        return AuthPageVM.OnBackButtonPressed(); 
+    }
 }

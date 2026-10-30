@@ -29,6 +29,8 @@ namespace Project26.Models
         public string? ReceivedMessage { get; protected set; }
         [Ignored]
         public bool ReceivedMessageBold { get; protected set; }
+        [Ignored]
+        public Color ReceivedMessageColor { get; protected set; } = Colors.Black;
         public Message Message { get; set; } = new();
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string? HostName { get; set; }
