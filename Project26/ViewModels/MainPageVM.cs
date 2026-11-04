@@ -35,6 +35,11 @@ namespace Project26.ViewModels
         {
             chats.AddChat();
         }
+        [RelayCommand]
+        private static void Quit()
+        {
+            Application.Current?.Quit();
+        }
         private bool CanAddChat()
         {
             return chats.CanAddChat;
