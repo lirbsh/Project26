@@ -44,9 +44,10 @@
             Grid.ColumnSpan="2"
             Command="{Binding SendMessageCommand}" />
         <Button Text="{x:Static gn:Strings.QuitChat}"
-            Command="{Binding QuitChatCommand}" 
-                Grid.Row="5"
-                Grid.ColumnSpan="2"/>
+            Command="{Binding QuitChatCommand}"
+            BackgroundColor="Red"
+            Grid.Row="5"
+            Grid.ColumnSpan="2"/>
         <Grid x:Name="grdColors" Margin="0,20,0,0" Grid.Row="6" Grid.ColumnSpan="2" HorizontalOptions="Center" RowSpacing="2" ColumnSpacing="2"/>
         <Border Margin="70,0,70,0" Grid.Row="7" Grid.ColumnSpan="2" Stroke="{Binding CustomStroke}" StrokeThickness="5" HorizontalOptions="Fill">
             <Button Text="{x:Static gn:Strings.CustomColor}"

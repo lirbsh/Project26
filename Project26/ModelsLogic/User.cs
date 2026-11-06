@@ -33,7 +33,7 @@ namespace Project26.ModelsLogic
                     task.Exception != null ? fbd.GetErrorMessage(task.Exception.Message) : 
                             Strings.UnknownError;
             IsAuthenticated = task.IsCompletedSuccessfully;
-            StatusChanged?.Invoke(this, EventArgs.Empty);
+            base.OnStatusChanged();
         }
         protected override void Save()
         {

@@ -6,8 +6,10 @@ namespace Project26.Models
         protected bool incrementOpacity = true;
         protected string textToAnimate = string.Empty;
         protected TimerSettings timerSettings = new(Keys.TotalAnimationTime, Keys.AnimationTimeInterval);
-        public EventHandler? OpacityChanged;
-        public EventHandler? TextChanged;
+        public event EventHandler? OpacityChanged;
+        protected void OnOpacityChanged() => OpacityChanged?.Invoke(this, EventArgs.Empty);
+        public event EventHandler? TextChanged;
+        protected void OnTextChanged() => TextChanged?.Invoke(this, EventArgs.Empty);
         public enum AnimationTypes { Opacity, Text }
         public double Opacity { get; protected set; }
         public string Text { get; protected set; } = string.Empty;

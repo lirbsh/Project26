@@ -7,7 +7,8 @@ namespace Project26.Models
     {
         protected FbData fbd = FbData.Instance;
         protected bool isBusy = false;
-        public EventHandler? StatusChanged;
+        public event EventHandler? StatusChanged;
+        protected void OnStatusChanged() => StatusChanged?.Invoke(this, EventArgs.Empty);
         public string Email { get; set; } = Preferences.Get(Keys.EmailKey, string.Empty);   
         public string Password { get; set; } = Preferences.Get(Keys.PasswordKey, string.Empty);
         public string Name { get; set; } = Preferences.Get(Keys.NameKey, string.Empty);

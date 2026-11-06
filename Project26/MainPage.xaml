@@ -8,7 +8,7 @@
              x:DataType="vm:MainPageVM">
     <VerticalStackLayout>
         <Button Text="{x:Static gn:Strings.AddChat}" Command="{Binding AddChatCommand}" Margin="10" FontSize="25"/>
-        <Button Text="{x:Static gn:Strings.Quit}" Command="{Binding QuitCommand}" Margin="10" FontSize="25" />
+        <Button Text="{x:Static gn:Strings.Quit}" Command="{Binding QuitCommand}" Margin="10" FontSize="25" BackgroundColor="Red"/>
         <CollectionView ItemsSource="{Binding ChatsList}" Margin="10" SelectionMode="Single" SelectedItem="{Binding SelectedChat}">
             <CollectionView.EmptyView>
                 <StackLayout MinimumHeightRequest="400">

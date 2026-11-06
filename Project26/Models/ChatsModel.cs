@@ -11,9 +11,12 @@ namespace Project26.Models
         protected Chat? newChat;
         protected FbData fbd = FbData.Instance;
         protected User user = User.Instance;
-        public EventHandler? StatusChanged { get; set; }
-        public EventHandler? ChatsChanged { get; set; }
-        public EventHandler<ChatArgs>? ChatAdded { get; set; }
+        public event EventHandler? StatusChanged;
+        protected void OnStatusChanged() => StatusChanged?.Invoke(this, EventArgs.Empty);
+        public event EventHandler? ChatsChanged;
+        protected void OnChatsChanged() => ChatsChanged?.Invoke(this, EventArgs.Empty);
+        public event EventHandler<ChatArgs>? ChatAdded;
+        protected void OnChatAdded(ChatArgs args) => ChatAdded?.Invoke(this, args);
         public ObservableCollection<Chat> ChatsList { get; set; } = [];
         public bool CanAddChat => !isBusy;
         public abstract void AddChat();

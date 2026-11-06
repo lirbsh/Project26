@@ -33,7 +33,8 @@
             <Button Text="{x:Static gn:Strings.Register}"
                     Command="{Binding CreateUserCommand}" />
             <Button Text="{x:Static gn:Strings.Quit}"
-                    Command="{Binding QuitCommand}" />
+                    Command="{Binding QuitCommand}" 
+                    BackgroundColor="Red"/>
             <Label Text="{Binding Status}"
                 FontSize="24"
                 HorizontalOptions="Center"

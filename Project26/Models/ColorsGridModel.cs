@@ -3,16 +3,18 @@
     internal abstract class ColorsGridModel
     {
         protected Border? prevBorder;
-        protected Color[,] GridColors =
+        protected static readonly Color[,] GridColors =
         {
             { Colors.Red, Colors.Green, Colors.Blue, Colors.Pink },
             { Colors.Yellow, Colors.Orange, Colors.Purple, Colors.Lime },
             { Colors.Cyan, Colors.Magenta, Colors.Brown, Colors.Teal },
             { Colors.Gray, Colors.Black, Colors.Gold, Colors.Silver }
         };
+        protected const int DefaultColorRow = 3, DefaultColorColumn = 1;
         protected readonly Grid colorsGrid;
-        public Color SelectedColor { get; set; } = Colors.Black;
-        public EventHandler? ColorSelected;
+        public Color SelectedColor { get; set; } = GridColors[DefaultColorRow, DefaultColorColumn];
+        public event EventHandler? ColorSelected;
+        protected void OnColorSelected() => ColorSelected?.Invoke(this, EventArgs.Empty);
         public ColorsGridModel(Grid grdColors)
         {
             colorsGrid = grdColors;

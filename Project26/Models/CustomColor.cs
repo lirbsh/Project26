@@ -2,7 +2,8 @@
 {
     internal class CustomColor
     {
-        public EventHandler? ColorChanged { get; set; }
+        public event EventHandler? ColorChanged;
+        public void OnColorChanged() => ColorChanged?.Invoke(this, EventArgs.Empty);
         public double Red { get; set; } = 128;
         public double Green { get; set; } = 128;
         public double Blue { get; set; } = 128;

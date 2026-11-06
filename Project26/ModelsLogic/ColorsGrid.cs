@@ -2,16 +2,22 @@
 
 namespace Project26.ModelsLogic
 {
-    internal class ColorsGrid : Models.ColorsGridModel
+    internal class ColorsGrid : ColorsGridModel
     {
         public ColorsGrid(Grid grdColors) : base(grdColors)
         {
+            Color strokeColor;
             for (int row = 0; row < GridColors.GetLength(0); row++)
                 for (int col = 0; col < GridColors.GetLength(1); col++)
                 {
                     ColoredButton btn = new (50, GridColors[row, col]);
                     btn.Clicked += OnButtonClicked;
-                    colorsGrid.Add(new Border() {StrokeThickness = 5, Stroke = Colors.Transparent, Content = btn }, col, row);
+                    strokeColor = (row == DefaultColorRow && col == DefaultColorColumn) ?
+                         Colors.SteelBlue : Colors.Transparent;
+                    Border brd = new () { StrokeThickness = 5, Stroke = strokeColor, Content = btn };
+                    colorsGrid.Add(brd, col, row);
+                    if (row == DefaultColorRow && col == DefaultColorColumn)
+                        prevBorder = brd;
                 }
         }
 
@@ -30,7 +36,7 @@ namespace Project26.ModelsLogic
                 prevBorder.Stroke = Colors.Transparent;
             prevBorder = brd;
             SelectedColor = btn.Color;
-            ColorSelected?.Invoke(this, EventArgs.Empty);
+            base.OnColorSelected();
         }
     }
 }

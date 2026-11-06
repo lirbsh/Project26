@@ -13,12 +13,12 @@ namespace Project26.Models
         protected User user = User.Instance;
         [Ignored]
         public bool SelectingCustomColor { get; set; }
-        [Ignored]
-        public EventHandler? ChatStarted { get; set; }
-        [Ignored]
-        public EventHandler<ChatChangedArgs>? ChatChanged { get; set; }
-        [Ignored]
-        public EventHandler<DeleteArgs>? ChatDeleted { get; set; }
+        public event EventHandler? ChatStarted;
+        protected void OnChatStarted() => ChatStarted?.Invoke(this, EventArgs.Empty);
+        public event EventHandler<ChatChangedArgs>? ChatChanged;
+        protected void OnChatChanged(ChatChangedArgs args) => ChatChanged?.Invoke(this, args);
+        public event EventHandler<DeleteArgs>? ChatDeleted;
+        protected void OnChatDeleted(DeleteArgs args) => ChatDeleted?.Invoke(this, args);
         [Ignored]
         public string? Id { get; set; }
         [Ignored]

@@ -36,7 +36,7 @@ namespace Project26.ModelsLogic
                 Opacity = (double)(Keys.TotalAnimationTime - timeLeft) / Keys.TotalAnimationTime;
             else
                 Opacity = (double)timeLeft / Keys.TotalAnimationTime;
-            OpacityChanged?.Invoke(this, EventArgs.Empty);
+            base.OnOpacityChanged();
         }
         private void OnMessageReceived(int timeLeft)
         {
@@ -53,7 +53,7 @@ namespace Project26.ModelsLogic
                 int charsToShow = textToAnimate.Length - (timeLeft / Keys.SecondToMillisconds);
                 Text = textToAnimate[..charsToShow];
             }
-            TextChanged?.Invoke(this, EventArgs.Empty);
+            base.OnTextChanged();
         }
 
         internal void StopAnimations()

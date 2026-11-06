@@ -71,7 +71,12 @@ namespace Project26.ViewModels
         private void SelectColor()
         {
             Shell.Current.Navigation.PopAsync();
-            customColor.ColorChanged?.Invoke(this, EventArgs.Empty);
+            customColor.OnColorChanged();
+        }
+        [RelayCommand]
+        private static void Quit()
+        {
+            Shell.Current.Navigation.PopAsync();
         }
     }
 }

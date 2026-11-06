@@ -30,7 +30,7 @@ namespace Project26.ModelsLogic
         protected override void OnStartChatComplete(Task task)
         {
             if (task.IsCompletedSuccessfully)
-                ChatStarted?.Invoke(this, EventArgs.Empty);
+                base.OnChatStarted();
         }
         public override void SendMessage(Action<Task> OnComplete)
         {
@@ -64,10 +64,10 @@ namespace Project26.ModelsLogic
                     ReceivedMessageColor = c.Message.Color;
                 }
                 string? status = IsMyTurn? Strings.PleaseSend: Strings.PleaseWait;
-                ChatChanged?.Invoke(this, new ChatChangedArgs(status));
+                base.OnChatChanged(new ChatChangedArgs(status));
             } 
             else 
-                ChatDeleted?.Invoke(this, new DeleteArgs(isMyDelete: false));
+                base.OnChatDeleted(new DeleteArgs(isMyDelete: false));
         }
         public override void RemoveSnapshotListener()
         {
@@ -80,7 +80,7 @@ namespace Project26.ModelsLogic
         protected override void OnDeleteComplete(Task task)
         {
             if(task.IsCompletedSuccessfully)
-                ChatDeleted?.Invoke(this, new DeleteArgs(isMyDelete: true));
+                base.OnChatDeleted(new DeleteArgs(isMyDelete: true));
         }
     }
 }
