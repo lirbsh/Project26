@@ -12,6 +12,8 @@ namespace Project26.Models
         protected FbData fbd = FbData.Instance;
         protected User user = User.Instance;
         [Ignored]
+        public bool SelectingCustomColor { get; set; }
+        [Ignored]
         public EventHandler? ChatStarted { get; set; }
         [Ignored]
         public EventHandler<ChatChangedArgs>? ChatChanged { get; set; }

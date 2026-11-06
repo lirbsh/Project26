@@ -72,7 +72,10 @@ namespace Project26.ModelsLogic
         public override void RemoveSnapshotListener()
         {
             fbd.RemoveSnapshotListener();
-            fbd.DeleteDocument(Keys.CollectionKey, Id!, OnDeleteComplete);
+            if(!SelectingCustomColor)
+                fbd.DeleteDocument(Keys.CollectionKey, Id!, OnDeleteComplete);
+            else
+                SelectingCustomColor = false;
         }
         protected override void OnDeleteComplete(Task task)
         {

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Project26.ViewModels"
+             x:Class="Project26.Views.ColorPickerPage"
+             Title="ColorPickerPage">
+    <ScrollView>
+        <VerticalStackLayout Padding="30" Spacing="25" HorizontalOptions="Center" WidthRequest="400">
+
+            <!-- תצוגה מקדימה של הצבע הנבחר -->
+            <Border StrokeShape="RoundRectangle 12" 
+                    StrokeThickness="2" 
+                    Stroke="LightGray"
+                    HeightRequest="150" 
+                    HorizontalOptions="Fill">
+                <BoxView Color="{Binding SelectedColor}" />
+            </Border>
+
+            <!-- הצגת ערך ה-Hex הנוכחי -->
+            <Label Text="{Binding HexValue}" 
+                   FontSize="22" 
+                   FontAttributes="Bold" 
+                   HorizontalOptions="Center" />
+
+            <!-- בקרים לבחירת צבע (RGB + Alpha) -->
+            <VerticalStackLayout Spacing="15">
+
+                <!-- ערוץ אדום (Red) -->
+                <Grid ColumnDefinitions="50, *, 50">
+                    <Label Grid.Column="0" Text="R" VerticalOptions="Center" FontAttributes="Bold" TextColor="Red"/>
+                    <Slider Grid.Column="1" Minimum="0" Maximum="255" Value="{Binding Red}" MinimumTrackColor="Red"/>
+                    <Label Grid.Column="2" Text="{Binding Red, StringFormat='{0:F0}'}" VerticalOptions="Center" HorizontalOptions="End"/>
+                </Grid>
+
+                <!-- ערוץ ירוק (Green) -->
+                <Grid ColumnDefinitions="50, *, 50">
+                    <Label Grid.Column="0" Text="G" VerticalOptions="Center" FontAttributes="Bold" TextColor="Green"/>
+                    <Slider Grid.Column="1" Minimum="0" Maximum="255" Value="{Binding Green}" MinimumTrackColor="Green"/>
+                    <Label Grid.Column="2" Text="{Binding Green, StringFormat='{0:F0}'}" VerticalOptions="Center" HorizontalOptions="End"/>
+                </Grid>
+
+                <!-- ערוץ כחול (Blue) -->
+                <Grid ColumnDefinitions="50, *, 50">
+                    <Label Grid.Column="0" Text="B" VerticalOptions="Center" FontAttributes="Bold" TextColor="Blue"/>
+                    <Slider Grid.Column="1" Minimum="0" Maximum="255" Value="{Binding Blue}" MinimumTrackColor="Blue"/>
+                    <Label Grid.Column="2" Text="{Binding Blue, StringFormat='{0:F0}'}" VerticalOptions="Center" HorizontalOptions="End"/>
+                </Grid>
+
+                <!-- ערוץ שקיפות (Alpha) -->
+                <Grid ColumnDefinitions="50, *, 50">
+                    <Label Grid.Column="0" Text="A" VerticalOptions="Center" FontAttributes="Bold" TextColor="Gray"/>
+                    <Slider Grid.Column="1" Minimum="0" Maximum="1" Value="{Binding Alpha}" MinimumTrackColor="Gray"/>
+                    <Label Grid.Column="2" Text="{Binding Alpha, StringFormat='{0:F2}'}" VerticalOptions="Center" HorizontalOptions="End"/>
+                </Grid>
+
+            </VerticalStackLayout>
+
+            <!-- כפתור אישור / שמירה -->
+            <Button Text="בחר צבע זה" 
+                    Command="{Binding SelectColorCommand}"
+                    CornerRadius="8"
+                    HeightRequest="50"
+                    Margin="0,20,0,0"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

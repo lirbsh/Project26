@@ -1,6 +1,6 @@
 ﻿namespace Project26.Models
 {
-    internal class ColorsGridModel
+    internal abstract class ColorsGridModel
     {
         protected Border? prevBorder;
         protected Color[,] GridColors =
@@ -11,7 +11,7 @@
             { Colors.Gray, Colors.Black, Colors.Gold, Colors.Silver }
         };
         protected readonly Grid colorsGrid;
-        public Color SelectedColor = Colors.Black;
+        public Color SelectedColor { get; set; } = Colors.Black;
         public EventHandler? ColorSelected;
         public ColorsGridModel(Grid grdColors)
         {
@@ -21,5 +21,6 @@
             for (int col = 0; col < GridColors.GetLength(1); col++)
                 grdColors.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
         }
+        public abstract void UnselectColor();
     }
 }

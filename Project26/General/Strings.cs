@@ -21,7 +21,7 @@
         public const string PleaseSend = "Please send a message";
         public const string OpponentName = "Opponent Name";
         public const string ReceivedMessage = "Received Message";
-        public const string Message = "Status";
+        public const string Message = "Message";
         public const string Send = "Send";
         public const string Bold = "Bold";
         public const string NewLine = "\n";
@@ -30,6 +30,7 @@
         public const string ChatStarted = "Chat started Please send a message";
         public const string Quit = "Quit";
         public const string QuitChat = "Quit Chat";
+        public const string CustomColor = "Custom Color";
         public const string PreventBackMsg = "Please use the quit button to exit the app";
     }
 }

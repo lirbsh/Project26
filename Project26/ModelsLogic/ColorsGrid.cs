@@ -15,6 +15,12 @@ namespace Project26.ModelsLogic
                 }
         }
 
+        public override void UnselectColor()
+        {
+            prevBorder?.Stroke = Colors.Transparent;
+            prevBorder = null;
+        }
+
         private void OnButtonClicked(object? sender, EventArgs e)
         {
             ColoredButton btn = (ColoredButton)sender!;

@@ -4,12 +4,14 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Project26.EventsArgs;
 using Project26.General;
+using Project26.Models;
 using Project26.ModelsLogic;
 
 namespace Project26.ViewModels
 {
     internal partial class ChatPageVM : ObservableObject
     {
+        private readonly CustomColor customColor = new();
         private readonly ColorsGrid colorsGrid;
         private readonly ModelsLogic.Chat chat;
         [RelayCommand(CanExecute = nameof(CanSendMessage))]
@@ -23,6 +25,12 @@ namespace Project26.ViewModels
         private static void QuitChat()
         {
             Shell.Current.Navigation.PopAsync();
+        }
+        [RelayCommand]
+        private void SelectCustomColor()
+        {
+            chat.SelectingCustomColor = true;
+            Shell.Current.Navigation.PushAsync(new Views.ColorPickerPage(customColor));
         }
         private void OnSendComplete(Task task)
         {
@@ -45,6 +53,8 @@ namespace Project26.ViewModels
         public string OpponentName => chat.IsMeHost ? chat.GuestName! : chat.HostName!;
         public string ReceivedMessage => chat.ReceivedMessage!;
         public Color SendMessageColor => colorsGrid.SelectedColor;
+        public Color CustomColor => customColor.SelectedColor;
+        public Color CustomStroke { get; set; } = Colors.Transparent;
         public string Message
         {
             get => chat.Message.Text;
@@ -69,10 +79,24 @@ namespace Project26.ViewModels
             chat.ChatStarted += OnChatStarted;
             chat.ChatChanged += OnChatChanged;
             chat.ChatDeleted += OnChatDeleted;
+            customColor.ColorChanged += OnCustomColorChanged;
+        }
+
+        private void OnCustomColorChanged(object? sender, EventArgs e)
+        {
+            OnPropertyChanged(nameof(CustomColor));
+            colorsGrid.UnselectColor();
+            CustomStroke = Colors.SteelBlue;
+            OnPropertyChanged(nameof(CustomStroke));
+            colorsGrid.SelectedColor = CustomColor;
+            chat.Message.Color = CustomColor;
+            OnPropertyChanged(nameof(SendMessageColor));
         }
 
         private void OnColorSelected(object? sender, EventArgs e)
         {
+            CustomStroke = Colors.Transparent;
+            OnPropertyChanged(nameof(CustomStroke));
             chat.Message.Color = colorsGrid.SelectedColor;
             OnPropertyChanged(nameof(SendMessageColor));
         }
