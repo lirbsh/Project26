@@ -10,14 +10,14 @@ namespace Project26.ModelsLogic
         public override void AddChat()
         {
             isBusy = true;
-            base.OnStatusChanged();
+            base.InvokeStatusChanged();
             newChat = new() { HostName = user.Name};
             newChat.Id = newChat.SetFbDocument(OnComplete);
         }
         private void OnComplete(Task task)
         {
             isBusy = false;
-            base.OnChatAdded(new ChatArgs(newChat!, task.IsCompletedSuccessfully));
+            base.InvokeChatAdded(new ChatArgs(newChat!, task.IsCompletedSuccessfully));
         }
         public override void AddSnapshotListener()
         {
@@ -39,7 +39,7 @@ namespace Project26.ModelsLogic
                     ChatsList.Add(chat);
                 }
             }
-            base.OnChatsChanged();    
+            base.InvokeChatsChanged();    
         }
         public override void RemoveSnapshotListener()
         {

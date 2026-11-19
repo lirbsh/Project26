@@ -14,7 +14,7 @@
         protected readonly Grid colorsGrid;
         public Color SelectedColor { get; set; } = GridColors[DefaultColorRow, DefaultColorColumn];
         public event EventHandler? ColorSelected;
-        protected void OnColorSelected() => ColorSelected?.Invoke(this, EventArgs.Empty);
+        protected void InvokeColorSelected() => ColorSelected?.Invoke(this, EventArgs.Empty);
         public ColorsGridModel(Grid grdColors)
         {
             colorsGrid = grdColors;

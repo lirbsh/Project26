@@ -14,11 +14,11 @@ namespace Project26.Models
         [Ignored]
         public bool SelectingCustomColor { get; set; }
         public event EventHandler? ChatStarted;
-        protected void OnChatStarted() => ChatStarted?.Invoke(this, EventArgs.Empty);
+        protected void InvokeChatStarted() => ChatStarted?.Invoke(this, EventArgs.Empty);
         public event EventHandler<ChatChangedArgs>? ChatChanged;
-        protected void OnChatChanged(ChatChangedArgs args) => ChatChanged?.Invoke(this, args);
+        protected void InvokeChatChanged(ChatChangedArgs args) => ChatChanged?.Invoke(this, args);
         public event EventHandler<DeleteArgs>? ChatDeleted;
-        protected void OnChatDeleted(DeleteArgs args) => ChatDeleted?.Invoke(this, args);
+        protected void InvokeChatDeleted(DeleteArgs args) => ChatDeleted?.Invoke(this, args);
         [Ignored]
         public string? Id { get; set; }
         [Ignored]

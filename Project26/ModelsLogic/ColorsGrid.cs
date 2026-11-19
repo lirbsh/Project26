@@ -36,7 +36,7 @@ namespace Project26.ModelsLogic
                 prevBorder.Stroke = Colors.Transparent;
             prevBorder = brd;
             SelectedColor = btn.Color;
-            base.OnColorSelected();
+            base.InvokeColorSelected();
         }
     }
 }
