@@ -15,12 +15,12 @@ namespace Project26
         override protected void OnCreate(Bundle? savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            RegisterTimerMessages();
             StartDeleteFbDocsService();
         }
         private void StartDeleteFbDocsService()
         {
             Intent intent = new(this, typeof(DeleteFbDocsService));
-            RegisterTimerMessages();
             StartService(intent);
         }
         private void RegisterTimerMessages()
