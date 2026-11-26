@@ -4,9 +4,8 @@ using Android.Content.PM;
 using Android.OS;
 using CommunityToolkit.Mvvm.Messaging;
 using Project26.Models;
-using Project26.Platforms.Android;
 
-namespace Project26
+namespace Project26.Platforms.Android
 {
     [Activity(Theme = "@style/Maui.SplashTheme", MainLauncher = true, LaunchMode = LaunchMode.SingleTop, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
     public class MainActivity : MauiAppCompatActivity

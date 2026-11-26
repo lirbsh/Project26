@@ -14,6 +14,7 @@ public partial class AuthPage : ContentPage
     {
         base.OnSizeAllocated(width, height);
         apVM.StartAnimations();
+        apVM.AskPermissions();
     }
     protected override void OnDisappearing()
     {

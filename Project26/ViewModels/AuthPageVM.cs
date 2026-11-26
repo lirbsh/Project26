@@ -9,6 +9,7 @@ namespace Project26.ViewModels
 {
     internal partial class AuthPageVM : ObservableObject
     {
+        private readonly AppPermissions appPermissions = AppPermissions.Instance;
         private readonly Animatioms animatioms = new() { IsLooping = true };
         private readonly User user = User.Instance;
         public string Email { get =>user.Email; set=>user.Email = value; }
@@ -86,6 +87,11 @@ namespace Project26.ViewModels
         {
             Toast.Make(Strings.PreventBackMsg, ToastDuration.Long, 14).Show();
             return true; // Prevent back navigation
+        }
+
+        internal void AskPermissions()
+        {
+            appPermissions.AskPermissions();
         }
     }
 }

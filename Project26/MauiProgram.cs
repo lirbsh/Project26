@@ -19,6 +19,7 @@ namespace Project26
                 });
             builder.Services.AddSingleton<User>();
             builder.Services.AddSingleton<FbData>();
+            builder.Services.AddSingleton<AppPermissions>();
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
