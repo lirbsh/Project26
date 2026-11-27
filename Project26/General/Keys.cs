@@ -21,6 +21,7 @@
         public const long FinishedSignal = -1000;
         public const long TotalAnimationTime = 4000;
         public const long AnimationTimeInterval = 50;
+        public const int AlarmRequestCode = 0;
 
     }
 }

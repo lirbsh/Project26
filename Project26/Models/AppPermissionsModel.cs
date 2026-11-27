@@ -2,7 +2,7 @@
 {
     internal abstract class AppPermissionsModel
     {
-        public bool IsNotificationPermissionGranted { get; protected set; }
-        public abstract void AskPermissions();
+        public abstract bool CheckNotificationPermission();
+        public abstract void AskNotificationPermission();
     }
 }

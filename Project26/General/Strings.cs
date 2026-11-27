@@ -19,6 +19,8 @@
         public const string ChatTitle = "Chat";
         public const string PleaseWait = "Please wait...";
         public const string PleaseSend = "Please send a message";
+        public const string PleaseLogin = "Please login to continue";
+        public const string PleaseRegister = "Please register to continue";
         public const string OpponentName = "Opponent Name";
         public const string ReceivedMessage = "Received Message";
         public const string Message = "Message";

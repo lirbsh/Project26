@@ -3,6 +3,8 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using CommunityToolkit.Mvvm.Messaging;
+using Java.Lang;
+using Project26.General;
 using Project26.Models;
 
 namespace Project26.Platforms.Android
@@ -15,8 +17,18 @@ namespace Project26.Platforms.Android
         {
             base.OnCreate(savedInstanceState);
             RegisterTimerMessages();
+            RegisterAlarmMessages();
             StartDeleteFbDocsService();
         }
+
+        private void RegisterAlarmMessages()
+        {
+            WeakReferenceMessenger.Default.Register<AppMessage<AlarmSetting>>(this, (r, m) =>
+            {
+                OnAlarmMessageReceived(m.Value);
+            });
+        }
+
         private void StartDeleteFbDocsService()
         {
             Intent intent = new(this, typeof(DeleteFbDocsService));
@@ -26,14 +38,14 @@ namespace Project26.Platforms.Android
         {
             WeakReferenceMessenger.Default.Register<AppMessage<TimerSettings>>(this, (r, m) =>
             {
-                OnMessageReceived(m.Value);
+                OnTimerMessageReceived(m.Value);
             });
             WeakReferenceMessenger.Default.Register<AppMessage<bool>>(this, (r, m) =>
             {
-                OnMessageReceived(m.Value);
+                OnTimerMessageReceived(m.Value);
             });
         }
-        private void OnMessageReceived(bool value)
+        private void OnTimerMessageReceived(bool value)
         {
             if (value)
             {
@@ -42,10 +54,27 @@ namespace Project26.Platforms.Android
             }
         }
 
-        private void OnMessageReceived(TimerSettings value)
+        private void OnTimerMessageReceived(TimerSettings value)
         {
             mTimer = new MyTimer(value);
             mTimer.Start();
+        }
+        private void OnAlarmMessageReceived(AlarmSetting setting)
+        {
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.M)
+            {
+                Intent i = new(this, typeof(AlarmReceiver));
+                i.PutExtra(Keys.MessageKey, setting.MessageToSend);
+                PendingIntent? pi = PendingIntent.GetBroadcast(this, Keys.AlarmRequestCode, i, PendingIntentFlags.Immutable);
+                if (pi != null)
+                {
+                    AlarmManager? am = GetSystemService(AlarmService) as AlarmManager;
+                    if (setting.CancelAlarm)
+                        am?.Cancel(pi);
+                    else
+                        am?.Set(AlarmType.RtcWakeup, JavaSystem.CurrentTimeMillis() + setting.SecondToStart * 1000, pi);
+                }
+            }
         }
     }
 }

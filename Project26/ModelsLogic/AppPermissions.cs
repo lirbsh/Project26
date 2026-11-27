@@ -1,4 +1,5 @@
-﻿using Project26.Models;
+﻿using Java.Lang;
+using Project26.Models;
 
 namespace Project26.ModelsLogic
 {
@@ -6,10 +7,18 @@ namespace Project26.ModelsLogic
     {
         public static AppPermissions Instance =>
             IPlatformApplication.Current?.Services.GetService<AppPermissions>() ?? new AppPermissions();
-        public async override void AskPermissions()
+
+        public override bool CheckNotificationPermission()
         {
-            PermissionStatus ps = await Permissions.RequestAsync<Permissions.PostNotifications>();
-            IsNotificationPermissionGranted = ps == PermissionStatus.Granted;
+            PermissionStatus status =  Permissions.CheckStatusAsync<Permissions.PostNotifications>().Result;
+            return status == PermissionStatus.Granted;
+        }
+
+        public override void AskNotificationPermission()
+        {
+            bool isGranted = CheckNotificationPermission();
+            if(!isGranted)
+                 Permissions.RequestAsync<Permissions.PostNotifications>();
         }
     }
 }
